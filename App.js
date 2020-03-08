@@ -1,76 +1,122 @@
-import React, { useEffect, useState } from 'react'; //recipes
-import Recipe from './Recipe';
-import './App.css';
-
-const App = () => {
-    const APP_ID = '9eb44e8d';
-    const APP_KEY = '2f009f1c3a714d5e28c2be167ac41e3a';
-
-    const [recipes,setRecipes] = useState([]);
-    const [search,setSearch]=useState("");
-    const [query,setQuery]=useState("chicken");
-   // const InitialPropA= useState("chicken");
 
 
-    useEffect(() => {
-        getRecipes(); 
-        // eslint-disable-next-line
-    }, [query]); 
+import React from "react"; //eyes
+import ReactDOM from "react-dom";
+import orangej from './orangej.png';
+import orangejj from './orangejj.png';
+import orangejjj from './orangejjj.png';
+import * as cocoSsd from "@tensorflow-models/coco-ssd";
+import "@tensorflow/tfjs";
 
+class App extends React.Component {
+    videoRef = React.createRef();
+    canvasRef = React.createRef();
 
+    componentDidMount() {
+        if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+            const webCamPromise = navigator.mediaDevices
+                .getUserMedia({
+                    audio: false,
+                    video: {
+                        facingMode: "user"
+                    }
+                })
+                .then(stream => {
+                    window.stream = stream;
+                    this.videoRef.current.srcObject = stream;
+                    return new Promise((resolve, reject) => {
+                        this.videoRef.current.onloadedmetadata = () => {
+                            resolve();
+                        };
+                    });
+                });
+            const modelPromise = cocoSsd.load();
+            Promise.all([modelPromise, webCamPromise])
+                .then(values => {
+                    this.detectFrame(this.videoRef.current, values[0]);
+                })
+                .catch(error => {
+                    console.error(error);
+                });
+        }
+    }
 
-    const getRecipes = async () => {
-        const response = await fetch(
-            `https://api.edamam.com/search?q=${query}&app_id=${APP_ID}&app_key=${APP_KEY}`
-        );
-        const data = await response.json();
-        setRecipes(data.hits);
-        console.log(data.hits);  
+    detectFrame = (video, model) => {
+        model.detect(video).then(predictions => {
+            this.renderPredictions(predictions);
+            requestAnimationFrame(() => {
+                this.detectFrame(video, model);
+            });
+        });
     };
 
-/*
-        useEffect(() => {
-    getRecipes(InitialPropA.current);
-  }, [getRecipes, InitialPropA]);
-*/
+    renderPredictions = predictions => {
+        const ctx = this.canvasRef.current.getContext("2d");
+        ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+        // Font options.
+        const font = "16px sans-serif";
+        ctx.font = font;
+        ctx.textBaseline = "top";
+        predictions.forEach(prediction => {
+            const x = prediction.bbox[0];
+            const y = prediction.bbox[1];
+            const width = prediction.bbox[2];
+            const height = prediction.bbox[3];
+            // Draw the bounding box.
+            ctx.strokeStyle = "#00FFFF";
+            ctx.lineWidth = 4;
+            ctx.strokeRect(x, y, width, height);
+            // Draw the label background.
+            ctx.fillStyle = "#00FFFF";
+            const textWidth = ctx.measureText(prediction.class).width;
+            const textHeight = parseInt(font, 10); // base 10
+            ctx.fillRect(x, y, textWidth + 4, textHeight + 4);
+        });
 
-    const updateSearch = e => {
-        setSearch(e.target.value)
-        //console.log(search);
-    };
-    
-    const getSearch = e => {
-        e.preventDefault();
-        setQuery(search);
-        setSearch('');
+        predictions.forEach(prediction => {
+            const x = prediction.bbox[0];
+            const y = prediction.bbox[1];
+            var str = "orange";
+            // Draw the text last to ensure it's on top.
+            ctx.fillStyle = "#000000";
+            ctx.fillText(prediction.class, x, y);
+            var n = prediction.class.localeCompare(str);
+            if (n) {
+                <div>
+                    <img src={orangej} className="orangej" alt="orangej" />
+                    <img src={orangejj} className="orangejj" alt="orangejj" />
+                    <img src={orangejjj} className="orangejjj" alt="orangejjj" />
+                </div>
+            };
+  
+        });
     };
 
-    return (
-        <div className="App">
-            <form onSubmit={getSearch} className="search-form">
-                <input 
-                    className="search-bar" 
-                    type="text"
-                    value={search} 
-                    onChange={updateSearch}
+    render() {
+        return (
+            <div>
+
+                <video
+                    className="size"
+                    autoPlay
+                    playsInline
+                    muted
+                    ref={this.videoRef}
+                    width="600"
+                    height="500"
                 />
-                <button className="search-button" type="submit">
-                    Search 
-                </button>
-            </form>
-            <div className="recipes">
-                {recipes.map(recipe =>(
-                    <Recipe
-                        key={recipe.recipe.label}
-                        title={recipe.recipe.label}
-                        calories={recipe.recipe.calories}
-                        image={recipe.recipe.image}
-                        ingredients={recipe.recipe.ingredients}
-                    />
-            ))}
+                <canvas
+                    className="size"
+                    ref={this.canvasRef}
+                    width="600"
+                    height="500"
+                />
             </div>
-        </div>
-    );
-};
+        );
+    }
+}
 
+const rootElement = document.getElementById("root");
+ReactDOM.render(<App />, rootElement);
 export default App;
+

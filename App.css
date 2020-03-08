@@ -1,63 +1,67 @@
-.App{
-	min-height: 100vh;
-	background-image: linear-gradient(to top, #fddb92 0%, #d1fdff 100%);
+body {
+    color: white;
+    background: #282c34
+    ;
 }
 
-.search-form{
-	mini-height:10vh;
-	display: flex;
-	justify-content: center;
-	align-items: center;
+div {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+    padding: 30px;
 }
 
-.search-bar{
-	width: 50%;
-	border: none;
-	padding:10px;
+input {
+    width: 0.1px;
+    height: 0.1px;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: -1;
 }
 
-.search-button{
-	background: lightcoral;
-	border:none;
-	padding:10px 20px;
-	color: white;
+button,
+label,
+ul {
+    width: 300px;
+    box-sizing: border-box;
+    border: solid 1px white;
+    background: black;
+    color: white;
+    font-size: 24px;
+    margin: auto;
+    padding: 10px;
 }
 
-.recipes{
-	display:flex;
-	justify-content: space-around;
-	flex-wrap: wrap;
+img {
+    width: 300px;
+    margin-bottom: 25px;
 }
 
-
-/*
-.App-Logo {
-	animation:App-logo-spin infinite 20s linear;
-	height: 40vmin;
-	pointer-events: none;
+ul {
+    list-style: none;
+    padding: 10px;
+    margin-bottom: 25px;
 }
 
-.App-header{
-	background-color: #282d35;
-	min-height: 100vh;
-	display: flex;
-	flex-direction: column;
-	align-items:center;
-	font-size: calc(10px + 2vmin);
-	color: white;
+li:not(:last-child) {
+    padding: 10px;
+    border-bottom: solid 1px;
 }
 
-.App-link {
-	color: #61defb;
+.orangej {
+    width: 3000px;
+    margin-bottom: 25px;
 }
 
-
-@keyframes App-logo-spin {
-	from {
-		transform: rotate(0deg);
-	}
-	to {
-		transform: rotate(360deg);
-	}
+.orangejj {
+    width: 3000px;
+    margin-bottom: 25px;
 }
-*/
+
+.orangejjj {
+    width: 3000px;
+    margin-bottom: 25px;
+}
+
