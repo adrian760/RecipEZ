@@ -1,11 +1,24 @@
 # RecipEZ
-
+<img src="https://github.com/itsmeihua/RecipEZ/blob/master/Recipez.png" width="600" height="600">
 
 ## Inspiration
 As university students, we have limited cooking knowledge and groceries. Because of this, we wanted something that can provide us with simple recipes with anything we have in the fridge! So, we came up with RecipEZ, as we believe this can help other students and culinary novices alike!
 
 ## What it does
 In order to be able to get recipes just from showing the camera our ingredients available we used machine learning to identify food items and then provide recipes from 2 million curated options. It displays the food identified as well as the recipes.
+
+|![alt text](https://github.com/itsmeihua/RecipEZ/blob/master/recipes.png)|
+|:--:| 
+| *Our recipe generator front-end, to the user's preference and grocery availability* |
+
+|![alt text](https://github.com/itsmeihua/RecipEZ/blob/master/Eyes.png)|
+|:--:| 
+| *Our TensorFlow model recognising multiple fruits in the React localhost* |
+
+|![alt text](https://github.com/itsmeihua/RecipEZ/blob/master/console.png)|
+|:--:| 
+| *This is our recipe generator taking a list of items that would be generated and displaying the list of potential recipes* |
+
 
 ## How we built it
 TensorFlow models. React front-end. Node.js and Python backend. Web camera.
