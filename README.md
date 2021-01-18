@@ -1,3 +1,4 @@
+# RecipEZ
 
 ## Inspiration
 As university students, we have limited cooking knowledge and groceries. Because of this, we wanted something that can provide us with simple recipes with anything we have in the fridge! So, we came up with RecipEZ, as we believe this can help other students and culinary novices alike!
