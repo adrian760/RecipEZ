@@ -2,7 +2,7 @@
 ## Inspiration
 As university students, we have limited cooking knowledge and groceries. Because of this, we wanted something that can provide us with simple recipes with anything we have in the fridge! So, we came up with RecipEZ, as we believe this can help other students and culinary novices alike!
 
-<img src="https://github.com/itsmeihua/RecipEZ/blob/master/Recipez.png" width="600" height="600">
+<img src="https://github.com/itsmeihua/RecipEZ/blob/master/Recipez.png" width="400" height="400">
 
 ## What it does
 In order to be able to get recipes just from showing the camera our ingredients available we used machine learning to identify food items and then provide recipes from 2 million curated options. It displays the food identified as well as the recipes.
